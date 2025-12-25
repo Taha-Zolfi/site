@@ -1207,27 +1207,34 @@
         }
 
         async function sendMessage(type = 'text', content = null) {
-            if (!db) return;
+            if (!db || !channel) return;
             const textInput = document.getElementById('msg-input');
             const msgContent = content || textInput.value;
             if (!msgContent.trim()) return;
 
             if (type === 'text') textInput.value = '';
 
-            // Using session storage to track our own messages since table lacks 'sender' col
-            const sentIds = JSON.parse(localStorage.getItem('sentMessages') || '[]');
-
-            const { data, error } = await db.from('messages').insert([{
+            const msgId = 'm-' + Math.random().toString(36).substring(2, 9);
+            const msgData = {
+                id: msgId,
                 content: msgContent,
-                type: type
-                // Removed 'sender' to avoid 400 error
-            }]).select();
+                type: type,
+                sender: currentUser,
+                created_at: new Date().toISOString()
+            };
 
-            if (!error && data && data.length > 0) {
-                sentIds.push(data[0].id);
-                localStorage.setItem('sentMessages', JSON.stringify(sentIds));
-                renderMessage(data[0], 'outgoing');
-            }
+            // 1. Render locally for the sender
+            renderMessage(msgData, 'outgoing');
+
+            // 2. Broadcast for instant delivery to others
+            channel.send({
+                type: 'broadcast',
+                event: 'new_msg',
+                payload: msgData
+            });
+
+            // 3. Save to DB in background
+            db.from('messages').insert([{ content: msgContent, type: type }]).then(() => { });
         }
 
         // Typing logic
@@ -1263,35 +1270,22 @@
             if (!db) return;
             const chatArea = document.getElementById('chat-area');
             chatArea.innerHTML = '';
-            localStorage.removeItem('sentMessages');
 
-            // CHAT HISTORY DISABLED FOR PRIVACY
-            /*
-            db.from('messages')
-                .select('*')
-                .order('created_at', { ascending: false })
-                .limit(20)
-                .then(({ data, error }) => {
-                    if (!error && data) {
-                        data.reverse().forEach(msg => {
-                            renderMessage(msg, 'incoming');
-                        });
-                    }
-                });
-            */
-
-            // Channel with Presence
+            // Channel with Presence and Broadcast
             channel = db.channel('realtime-ops', {
-                config: { presence: { key: currentUser } }
+                config: {
+                    presence: { key: currentUser },
+                    broadcast: { self: false }
+                }
             });
 
             channel
-                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
-                    const sentIds = JSON.parse(localStorage.getItem('sentMessages') || '[]');
-                    if (!sentIds.includes(payload.new.id)) {
-                        renderMessage(payload.new, 'incoming');
-                        playJoinSound();
-                    }
+                .on('broadcast', { event: 'new_msg' }, payload => {
+                    renderMessage(payload.payload, 'incoming');
+                    playJoinSound();
+                })
+                .on('broadcast', { event: 'clear_chat' }, () => {
+                    document.getElementById('chat-area').innerHTML = '';
                 })
                 .on('presence', { event: 'sync' }, () => {
                     const state = channel.presenceState();
@@ -1308,8 +1302,17 @@
                     typingPill.style.display = isAnyTyping ? 'block' : 'none';
                     typingPill.textContent = 'در حال نوشتن...';
                 })
-                .on('broadcast', { event: 'clear_chat' }, () => {
-                    document.getElementById('chat-area').innerHTML = '';
+                .on('presence', { event: 'join' }, ({ key }) => {
+                    if (key !== currentUser) {
+                        const notify = document.createElement('div');
+                        notify.className = 'typing-pill';
+                        notify.style.display = 'block';
+                        notify.style.background = 'rgba(0, 255, 167, 0.1)';
+                        notify.textContent = 'یک نود جدید متصل شد';
+                        chatArea.appendChild(notify);
+                        setTimeout(() => notify.remove(), 3000);
+                        playJoinSound();
+                    }
                 })
                 .subscribe(async (status) => {
                     if (status === 'SUBSCRIBED') {
