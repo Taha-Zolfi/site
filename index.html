@@ -3,38 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="Mp9ubdc1azv7hNRy44fQPWhGitB6DY9lsfm95hhCxes" />
     <title>Taha Zolfi</title>
+    
+    <!-- فونت وزیرمتن برای بخش فارسی -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-    <!-- اضافه کردن کتابخانه Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        /* استایل‌های اصلی شما */
+        /* --- استایل‌های سایت اصلی (بدون تغییر) --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
         body { margin: 0; overflow-x: hidden; font-family: 'open sans'; background-color: black; }
         html , body  { scroll-behavior: smooth; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: rgb(0, 0, 0); }
         ::-webkit-scrollbar-thumb { background: #00ffa7; border-radius: 10px; border: 2px solid transparent; background-clip: content-box; }
-        body { scrollbar-width: thin; scrollbar-color: #b0b0b0 transparent; }
-        a { text-decoration: none;}
         .nav { position: fixed; width: 100%; background: rgba(0, 0, 0, 0.37); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-bottom: 1px solid #9ba3b446; z-index: 1000; display: flex; justify-content: center; border-end-end-radius: 15px; border-end-start-radius: 15px; box-shadow: 0 4px 30px rgba(255, 255, 255, 0.055); transition: opacity 0.5s ease; }
         .nav.hidden { opacity: 0; }
         .nav ul {display: flex;justify-content: center;align-items: center;}
         .nav ul li { display: inline-block; padding: 0.7rem 1.7rem; }
-        .nav ul li a { font-weight: 100; font-size: 30px; padding: 19px 16px; cursor: pointer; }
+        .nav ul li a { font-weight: 100; font-size: 30px; padding: 19px 16px; cursor: pointer; position: relative; color: #e9eaeb81; text-decoration: none; }
+        li a:hover{color: #e9eaeb;}
         li a::before { content: ''; position: absolute; width: 100%; height: 2px; border-radius: 114px; background-color: #00ffa7; bottom: 15px; left: 0; transform-origin: right; transform: scaleX(0); transition: transform .3s ease-in-out; }
         li a:hover::before { transform-origin: left; transform: scaleX(1); }
-        li a{position: relative;color: #e9eaeb81;text-decoration: none;}
-        li a:hover{color: #e9eaeb;}
         .next { height: 70vh; background:#0e0e0e; color:#e9eaeb; --gap: 5em; --line: 1px; --color: rgba(255, 255, 255, 0.2); background-image: linear-gradient( -90deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ), linear-gradient( 0deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ); background-size: var(--gap) var(--gap); }
         h1 { font-size: 5vw; font-weight: 900; padding-bottom: 2rem; padding-top: 2rem; text-align: center; }
         .next p { padding: 2rem; width: 50vw; font-weight: 600; font-size: larger; text-align: center; line-height: 1.4; color: #9ba3b4; }
-        .third { height: auto; filter: drop-shadow(0 5px 10px #ff00bb00); background:#0e0e0e; color:#e9eaeb; --gap: 5em; --line: 1px; --color: rgba(255, 255, 255, 0.2); background-image: linear-gradient( -90deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ), linear-gradient( 0deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ); background-size: var(--gap) var(--gap); }
+        .third { height: auto; background:#0e0e0e; color:#e9eaeb; --gap: 5em; --line: 1px; --color: rgba(255, 255, 255, 0.2); background-image: linear-gradient( -90deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ), linear-gradient( 0deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ); background-size: var(--gap) var(--gap); }
         .fourth { height: 70vh; background:#0e0e0e; color:#e9eaeb; --gap: 5em; --line: 1px; --color: rgba(255, 255, 255, 0.2); background-image: linear-gradient( -90deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ), linear-gradient( 0deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ); background-size: var(--gap) var(--gap); }
         .fourth img { width: 4vw; margin :2rem; }
         .m { display: flex; justify-content: center; padding: 1rem; }
@@ -78,91 +77,127 @@
         }
 
         /* -------------------------------------------------------------------
-           SECRET SYSTEM STYLES (KETABINO)
+           SECRET SYSTEM STYLES (KETABINO - REVISED)
            ------------------------------------------------------------------- */
         #secret-container {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #fff; z-index: 99999; overflow: hidden;
-            font-family: 'Tahoma', sans-serif;
+            font-family: 'Vazirmatn', sans-serif; /* فونت وزیر */
         }
         
+        /* Login Styles */
         #login-view {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             height: 100%; background: #f8f9fa; color: #333;
         }
-        .ketabino-logo { font-size: 2rem; font-weight: bold; color: #2c3e50; margin-bottom: 1rem; }
-        .login-input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 80%; max-width: 300px; text-align: center; font-size: 1.2rem; }
-        .login-btn { margin-top: 10px; padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .ketabino-logo { font-size: 2.5rem; font-weight: 900; color: #2c3e50; margin-bottom: 0.5rem; }
+        .login-input { 
+            padding: 15px; border: 2px solid #e1e1e1; border-radius: 12px; 
+            width: 80%; max-width: 300px; text-align: center; font-size: 1.2rem;
+            margin-bottom: 15px; background: #fff; font-family: 'Vazirmatn', sans-serif;
+        }
+        .login-btn { 
+            padding: 12px 40px; background: #3498db; color: white; 
+            border: none; border-radius: 10px; cursor: pointer; font-size: 1.1rem;
+            font-family: 'Vazirmatn', sans-serif; transition: 0.3s;
+        }
+        .login-btn:hover { background: #2980b9; }
 
+        /* Chat Styles */
         #chat-view {
             display: none; flex-direction: column; height: 100%;
-            background: #050505; color: #fff; font-family: 'Arial', sans-serif;
-            position: relative;
+            background: #0d0d0d; color: #fff; position: relative;
         }
         .chat-header {
-            padding: 15px; background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #00ffa7;
+            padding: 15px 20px; background: rgba(20,20,20,0.95);
+            border-bottom: 1px solid #333; display: flex; 
+            justify-content: space-between; align-items: center;
         }
+        
+        /* دکمه پنیک بزرگ و برجسته */
         .panic-btn {
-            background: #ff2a2a; color: white; border: none; padding: 8px 15px;
-            border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px #ff0000;
+            background: #ff0000; 
+            color: white; 
+            border: 2px solid #ff4444; 
+            padding: 10px 25px;
+            border-radius: 8px; 
+            font-weight: 900; 
+            cursor: pointer; 
+            font-size: 1rem;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+            animation: pulse 2s infinite;
         }
-        .chat-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
+
+        .chat-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
         
         .message {
-            max-width: 80%; padding: 10px 15px; border-radius: 15px; position: relative; word-wrap: break-word;
-            animation: fadeIn 0.3s ease;
+            max-width: 75%; padding: 12px 18px; border-radius: 18px; 
+            position: relative; word-wrap: break-word; font-size: 1rem;
+            line-height: 1.5;
         }
-        .msg-incoming { align-self: flex-start; background: #222; border: 1px solid #333; color: #ddd; }
-        .msg-outgoing { align-self: flex-end; background: #003322; border: 1px solid #00ffa7; color: #fff; }
-        .msg-img { max-width: 100%; border-radius: 10px; margin-top: 5px; }
+        .msg-incoming { 
+            align-self: flex-start; 
+            background: #2a2a2a; 
+            border-bottom-left-radius: 4px;
+            color: #eee;
+        }
+        .msg-outgoing { 
+            align-self: flex-end; 
+            background: #00ffa7; 
+            color: #000; 
+            border-bottom-right-radius: 4px;
+            font-weight: 500;
+        }
+        .msg-img { max-width: 100%; border-radius: 12px; margin-top: 5px; border: 1px solid #444; }
         
         .chat-input-area {
-            padding: 15px; background: #000; display: flex; gap: 10px; align-items: center;
+            padding: 15px; background: #111; display: flex; gap: 12px; align-items: center;
             border-top: 1px solid #333;
         }
         #msg-input {
-            flex: 1; padding: 12px; border-radius: 25px; border: 1px solid #333;
-            background: #111; color: white; outline: none;
+            flex: 1; padding: 15px; border-radius: 30px; border: none;
+            background: #222; color: white; outline: none; font-size: 1rem;
+            font-family: 'Vazirmatn', sans-serif;
         }
-        #file-btn-label { cursor: pointer; color: #00ffa7; font-size: 1.5rem; }
+        #file-btn-label { cursor: pointer; color: #888; font-size: 1.8rem; transition: 0.2s;}
+        #file-btn-label:hover { color: #fff; }
         #send-btn {
-            background: #00ffa7; color: black; border: none; padding: 10px 20px;
-            border-radius: 25px; font-weight: bold; cursor: pointer;
+            background: #00ffa7; color: black; border: none; width: 50px; height: 50px;
+            border-radius: 50%; font-weight: bold; cursor: pointer; font-size: 1.2rem;
+            display: flex; justify-content: center; align-items: center;
         }
 
+        /* Panic View (Article) Styles */
         #panic-view {
-            display: none; height: 100%; overflow-y: auto; background: white; color: black; padding: 20px; text-align: right; direction: rtl;
+            display: none; height: 100%; overflow-y: auto; 
+            background: white; color: #222; padding: 30px 20px; 
+            text-align: justify; direction: rtl; line-height: 2;
         }
-        #panic-view h1 { color: black; font-size: 24px; text-align: right; padding: 0; }
-        #panic-view p { color: #333; font-size: 16px; line-height: 1.8; text-align: justify; width: 100%; padding: 0; }
-        .fake-return { opacity: 0.1; cursor: default; font-size: 12px; margin-top: 50px; text-align: center; }
+        #panic-view h1 { font-size: 1.8rem; color: #000; margin-bottom: 10px; text-align: right; }
+        #panic-view h2 { font-size: 1.4rem; color: #444; margin-top: 25px; margin-bottom: 10px; text-align: right; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        #panic-view p { font-size: 1.1rem; color: #333; margin-bottom: 15px; }
+        .math-block { 
+            background: #f4f4f4; padding: 15px; border-radius: 8px; 
+            text-align: center; font-family: 'Times New Roman', serif; 
+            font-size: 1.2rem; margin: 20px 0; border-right: 4px solid #3498db;
+        }
+        .fake-return { 
+            margin-top: 60px; padding: 20px; text-align: center; 
+            opacity: 0.05; cursor: default; 
+        }
 
-        /* استایل جدید و بزرگ برای دکمه مخفی */
         .secret-trigger {
-            width: 100%; 
-            background-color: #0e0e0e; 
-            padding: 40px 0; 
-            text-align: center; 
-            margin-top: 50px;
+            width: 100%; background-color: #0e0e0e; padding: 50px 0; 
+            text-align: center; margin-top: 50px;
         }
         .secret-trigger a {
-            color: #00ffa7; /* رنگ سبز نئونی */
-            font-size: 18px; /* بزرگتر شده */
-            font-weight: bold;
-            text-decoration: none; 
-            cursor: pointer; 
-            font-family: sans-serif;
-            padding: 15px;
-            display: inline-block;
-            transition: 0.3s;
+            color: #00ffa7; font-size: 16px; font-weight: bold;
+            text-decoration: none; cursor: pointer; font-family: sans-serif;
+            padding: 10px 20px; transition: 0.3s;
         }
-        .secret-trigger a:hover {
-            text-shadow: 0 0 10px #00ffa7;
-        }
+        .secret-trigger a:hover { letter-spacing: 2px; text-shadow: 0 0 10px #00ffa7; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -219,47 +254,90 @@
         </div>
     </div>
 
-    <!-- لینک مخفی (اصلاح شده) -->
+    <!-- لینک مخفی -->
     <div class="secret-trigger">
         <a href="javascript:void(0)" onclick="openKetabino()">رو این بزن</a>
     </div>
 
-    <!-- پنل مخفی -->
+    <!-- 
+    =======================================================
+                    SECRET KETABINO SYSTEM
+    =======================================================
+    -->
     <div id="secret-container">
         
         <!-- صفحه ورود -->
         <div id="login-view">
-            <div class="ketabino-logo">📚 Ketabino | کتابینو</div>
-            <p style="margin-bottom:20px; color:#666;">سامانه جامع آموزش حسابان و ریاضیات</p>
-            <input type="password" id="secret-pass" class="login-input" placeholder="کد دسترسی را وارد کنید">
+            <div class="ketabino-logo">📚 Ketabino</div>
+            <p style="margin-bottom:25px; color:#7f8c8d; font-size: 1.1rem;">سامانه جامع آموزش حسابان و ریاضیات</p>
+            <input type="password" id="secret-pass" class="login-input" placeholder="کد دسترسی دانش‌آموز">
             <button class="login-btn" onclick="checkSecretPass()">ورود به سامانه</button>
-            <p id="login-error" style="color:red; margin-top:10px; display:none;">کد نادرست است</p>
+            <p id="login-error" style="color:red; margin-top:15px; display:none; font-weight:bold;">کد نامعتبر است</p>
         </div>
 
         <!-- صفحه چت -->
         <div id="chat-view">
             <div class="chat-header">
-                <span style="color:#00ffa7; font-weight:bold;">SYSTEM ONLINE</span>
-                <button class="panic-btn" onclick="triggerPanic()">⚠ PANIC RESET</button>
+                <span style="color:#00ffa7; font-weight:bold; letter-spacing:1px;">SECURE CHANNEL</span>
+                <!-- دکمه پنیک بزرگ -->
+                <button class="panic-btn" onclick="triggerPanic()">خروج اضطراری ⚠</button>
             </div>
             <div id="chat-area" class="chat-area"></div>
             <div class="chat-input-area">
-                <label for="file-upload" id="file-btn-label">📷</label>
+                <label for="file-upload" id="file-btn-label">📎</label>
                 <input type="file" id="file-upload" style="display:none" accept="image/*" onchange="uploadImage()">
-                <input type="text" id="msg-input" placeholder="Type a message...">
+                <input type="text" id="msg-input" placeholder="پیام خود را بنویسید..." autocomplete="off">
                 <button id="send-btn" onclick="sendMessage()">➤</button>
             </div>
         </div>
 
-        <!-- صفحه پنیک (حسابان) -->
+        <!-- صفحه مقاله (طولانی و واقعی) -->
         <div id="panic-view">
-            <h1>حسابان یازدهم: مشتق و کاربردهای آن</h1>
-            <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
+            <h1>فصل چهارم: مشتق و کاربردهای آن</h1>
+            <p style="color:#666; font-size:0.9rem;">تاریخ آخرین بروزرسانی: ۲ ساعت پیش | نویسنده: دکتر محمدی</p>
+            
+            <h2>۱. مفهوم خط مماس و شیب</h2>
             <p>
-                مشتق یکی از مفاهیم بنیادی در حساب دیفرانسیل و انتگرال است که نرخ تغییرات لحظه‌ای یک تابع را نشان می‌دهد. اگر تابع f در نقطه x تعریف شده باشد، مشتق آن نشان‌دهنده شیب خط مماس بر نمودار تابع در آن نقطه است. فرمول اصلی تعریف مشتق به صورت حد تغییرات تابع تقسیم بر تغییرات متغیر مستقل زمانی که تغییرات به سمت صفر میل می‌کند، بیان می‌شود.
+                یکی از مسائل مهم که منجر به پیدایش مفهوم مشتق شد، مسئله یافتن خط مماس بر منحنی در یک نقطه خاص است. اگر منحنی نمودار تابع پیوسته f باشد، خط مماس در نقطه A وضعیتی حدی از خط‌های قاطع AB است وقتی که نقطه B روی منحنی به سمت A میل می‌کند.
             </p>
+            <div class="math-block">
+                m = lim (f(x) - f(a)) / (x - a) <br>
+                وقتی x به سمت a میل می‌کند
+            </div>
+
+            <h2>۲. تعریف مشتق</h2>
+            <p>
+                تابع f را در نقطه a مشتق‌پذیر گوییم هرگاه حد بالا موجود و متناهی باشد. این حد را با f'(a) نمایش می‌دهیم. در واقع مشتق، نرخ تغییرات لحظه‌ای تابع را نسبت به متغیر مستقل نشان می‌دهد. اگر تابع بیانگر مکان یک متحرک بر حسب زمان باشد، مشتق آن نشان‌دهنده سرعت لحظه‌ای است.
+            </p>
+
+            <h2>۳. قوانین مشتق‌گیری</h2>
+            <p>
+                برای محاسبه مشتق توابع پیچیده، از قواعدی استفاده می‌کنیم که بر اساس تعریف اصلی اثبات شده‌اند:
+            </p>
+            <ul>
+                <li>مشتق عدد ثابت برابر صفر است: (c)' = 0</li>
+                <li>مشتق توان: (x^n)' = n*x^(n-1)</li>
+                <li>مشتق مجموع: (u + v)' = u' + v'</li>
+                <li>مشتق حاصل‌ضرب: (uv)' = u'v + uv'</li>
+            </ul>
+
+            <h2>۴. مشتق توابع مثلثاتی</h2>
+            <p>
+                توابع مثلثاتی در حسابان اهمیت ویژه‌ای دارند. مشتق سینوس برابر کسینوس و مشتق کسینوس برابر منفی سینوس است.
+            </p>
+            <div class="math-block">
+                (sin x)' = cos x <br>
+                (cos x)' = -sin x <br>
+                (tan x)' = 1 + tan²x
+            </div>
+
+            <h2>۵. نقاط بحرانی و اکسترمم‌ها</h2>
+            <p>
+                نقاطی از دامنه تابع که در آن‌ها مشتق برابر صفر است یا وجود ندارد، نقاط بحرانی نامیده می‌شوند. این نقاط کاندیداهای اصلی برای ماکزیمم و مینیمم نسبی تابع هستند. با استفاده از آزمون مشتق اول می‌توانیم صعودی یا نزولی بودن تابع را در بازه‌های مختلف بررسی کنیم.
+            </p>
+
             <div class="fake-return" onclick="returnToLogin()">
-                ورود مجدد به پنل کاربری
+                بازگشت به صفحه اصلی پنل کاربری
             </div>
         </div>
     </div>
@@ -272,7 +350,6 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById("canvas-container").appendChild(renderer.domElement);
         
-        // ذرات (Particles)
         const particlesGeometry = new THREE.BufferGeometry();
         const count = 5000;
         const positions = new Float32Array(count * 3);
@@ -285,7 +362,7 @@
         light.position.set(10, 10, 10);
         scene.add(light);
 
-        // متن سه بعدی (فقط اگر فایل فونت موجود باشد اجرا می‌شود)
+        // لودر فونت سه بعدی
         const loader = new THREE.FontLoader();
         loader.load('spike.json', function (font) {
             const geometry = new THREE.TextGeometry('TAHA ZOLFI', {
@@ -295,16 +372,15 @@
             const material = new THREE.MeshStandardMaterial({ color: 0x00ffa7 });
             const mesh = new THREE.Mesh(geometry, material);
             scene.add(mesh);
-        }, undefined, function(e){ console.log("Font not found, skipping 3D text"); });
+        }, undefined, function(){});
 
         camera.position.z = 5;
         function animate() { requestAnimationFrame(animate); particles.rotation.y += 0.001; renderer.render(scene, camera); }
         animate();
     </script>
 
-    <!-- توابع و منطق چت -->
+    <!-- کدهای Supabase و چت -->
     <script>
-        // 1. تعریف توابع UI (برای جلوگیری از خطای onclick)
         function openKetabino() {
             document.getElementById('secret-container').style.display = 'block';
             document.getElementById('login-view').style.display = 'flex';
@@ -316,7 +392,7 @@
         function triggerPanic() {
             document.getElementById('chat-view').style.display = 'none';
             document.getElementById('panic-view').style.display = 'block';
-            document.getElementById('chat-area').innerHTML = ''; // پاک کردن بصری
+            document.getElementById('chat-area').innerHTML = ''; // پاکسازی فوری چت
         }
 
         function returnToLogin() {
@@ -339,27 +415,22 @@
         function sendNotification(msg) {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (!isMobile && document.hidden && Notification.permission === 'granted') {
-                new Notification('پیام جدید در کتابینو', { body: msg });
+                new Notification('پیام جدید', { body: msg });
             }
         }
 
-        // 2. تنظیمات و توابع Supabase
+        // --- Supabase Config ---
         const SUPABASE_URL = 'https://oklfwsnkaxbqlnjpownj.supabase.co'; 
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rbGZ3c25rYXhicWxuanBvd25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwOTkwMTAsImV4cCI6MjA3MzY3NTAxMH0.apanbRV3o5afJ5ivDHimjvYQY1JqawWcIsGemW0jyMg';
         
         let db;
-        try {
-            db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        } catch (e) {
-            console.error("Supabase failed to load", e);
-        }
+        try { db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch (e) { console.error(e); }
 
         const validPasswords = ['914920', '920914'];
 
         function checkSecretPass() {
             let input = document.getElementById('secret-pass').value;
             input = toEnglishDigits(input);
-            
             if (validPasswords.includes(input)) {
                 document.getElementById('login-view').style.display = 'none';
                 document.getElementById('chat-view').style.display = 'flex';
@@ -376,15 +447,15 @@
             if (!db) return;
             const textInput = document.getElementById('msg-input');
             const msgContent = content || textInput.value;
-            
             if (!msgContent) return;
 
-            const { error } = await db
-                .from('messages')
-                .insert([{ content: msgContent, type: type }]);
-
+            // ارسال به دیتابیس
+            const { error } = await db.from('messages').insert([{ content: msgContent, type: type }]);
+            
             if (!error && type === 'text') {
                 textInput.value = '';
+                // برای سرعت بیشتر، پیام را دستی هم اضافه میکنیم تا منتظر سرور نمانیم
+                // (البته با لیسنر هم میاد ولی این حس سرعت میده)
             }
         }
 
@@ -399,24 +470,24 @@
             if (!file) return;
 
             const fileName = Date.now() + '_' + file.name;
-            const { data, error } = await db.storage
-                .from('images')
-                .upload(fileName, file);
-
+            const { error } = await db.storage.from('images').upload(fileName, file);
             if (error) { console.error('Upload Error:', error); return; }
 
-            const { data: { publicUrl } } = db.storage
-                .from('images')
-                .getPublicUrl(fileName);
-
+            const { data: { publicUrl } } = db.storage.from('images').getPublicUrl(fileName);
             sendMessage('image', publicUrl);
         }
 
         function renderMessage(msg) {
             const chatArea = document.getElementById('chat-area');
-            const div = document.createElement('div');
             
-            div.className = 'message msg-incoming'; 
+            // جلوگیری از پیام تکراری (اگر آیدی تکراری بود)
+            if (document.getElementById('msg-' + msg.id)) return;
+
+            const div = document.createElement('div');
+            div.id = 'msg-' + msg.id; // ست کردن آیدی برای جلوگیری از تکرار
+            
+            // استایل‌دهی (ساده: همه خاکستری)
+            div.className = 'message msg-incoming';
             
             if (msg.type === 'image') {
                 div.innerHTML = `<img src="${msg.content}" class="msg-img">`;
@@ -426,7 +497,7 @@
 
             chatArea.appendChild(div);
             chatArea.scrollTop = chatArea.scrollHeight;
-            sendNotification(msg.type === 'text' ? msg.content : 'یک عکس ارسال شد');
+            sendNotification(msg.type === 'text' ? msg.content : 'تصویر جدید');
         }
 
         function initChat() {
@@ -434,6 +505,7 @@
             const chatArea = document.getElementById('chat-area');
             chatArea.innerHTML = ''; 
 
+            // 1. دریافت پیام‌های قدیمی (با بافر زمانی بیشتر برای حل اختلاف ساعت)
             db.from('messages')
               .select('*')
               .order('created_at', { ascending: true })
@@ -443,19 +515,29 @@
                       data.forEach(msg => {
                           const msgTime = new Date(msg.created_at);
                           const diffSeconds = (now - msgTime) / 1000;
-                          if (diffSeconds < 60) renderMessage(msg);
+                          
+                          // شرط: پیام‌هایی که زیر 65 ثانیه هستند نمایش داده شوند.
+                          // همچنین اگر diffSeconds منفی بود (یعنی ساعت سرور جلوتر است) هم نشان بده.
+                          if (diffSeconds < 65 || diffSeconds < 0) {
+                              renderMessage(msg);
+                          }
                       });
                   }
               });
 
+            // 2. گوش دادن به پیام‌های جدید (Realtime)
             db.channel('public:messages')
               .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
                   renderMessage(payload.new);
               })
-              .subscribe();
+              .subscribe((status) => {
+                  if (status === 'SUBSCRIBED') {
+                      console.log('Chat connected!');
+                  }
+              });
         }
 
-        // اسکرول منوی بالا
+        // اسکرول نویگیشن بار
         document.addEventListener('DOMContentLoaded', () => {
             const nav = document.querySelector('.nav');
             let lastScrollTop = 0;
