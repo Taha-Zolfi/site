@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        /* استایل‌های اصلی شما (بدون تغییر) */
+        /* استایل‌های اصلی شما */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
         body { margin: 0; overflow-x: hidden; font-family: 'open sans'; background-color: black; }
         html , body  { scroll-behavior: smooth; }
@@ -35,9 +35,6 @@
         h1 { font-size: 5vw; font-weight: 900; padding-bottom: 2rem; padding-top: 2rem; text-align: center; }
         .next p { padding: 2rem; width: 50vw; font-weight: 600; font-size: larger; text-align: center; line-height: 1.4; color: #9ba3b4; }
         .third { height: auto; filter: drop-shadow(0 5px 10px #ff00bb00); background:#0e0e0e; color:#e9eaeb; --gap: 5em; --line: 1px; --color: rgba(255, 255, 255, 0.2); background-image: linear-gradient( -90deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ), linear-gradient( 0deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ); background-size: var(--gap) var(--gap); }
-        .c1 { filter: drop-shadow(0 1px 15px #00ccff11); }
-        .c2 { filter: drop-shadow(0 1px 15px #ff009d18); }
-        .c3 { filter: drop-shadow(0 1px 15px #00ff5518); }
         .fourth { height: 70vh; background:#0e0e0e; color:#e9eaeb; --gap: 5em; --line: 1px; --color: rgba(255, 255, 255, 0.2); background-image: linear-gradient( -90deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ), linear-gradient( 0deg, transparent calc(var(--gap) - var(--line)), var(--color) calc(var(--gap) - var(--line) + 1px), var(--color) var(--gap) ); background-size: var(--gap) var(--gap); }
         .fourth img { width: 4vw; margin :2rem; }
         .m { display: flex; justify-content: center; padding: 1rem; }
@@ -81,16 +78,14 @@
         }
 
         /* -------------------------------------------------------------------
-           SECRET SYSTEM STYLES (KETABINO) - اضافه شده برای چت مخفی
+           SECRET SYSTEM STYLES (KETABINO)
            ------------------------------------------------------------------- */
         #secret-container {
-            display: none; /* Hidden by default */
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #fff; z-index: 99999; overflow: hidden;
-            font-family: 'Tahoma', sans-serif; /* فونت ساده برای استتار */
+            font-family: 'Tahoma', sans-serif;
         }
         
-        /* حالت ورود (Ketabino) */
         #login-view {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             height: 100%; background: #f8f9fa; color: #333;
@@ -99,7 +94,6 @@
         .login-input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 80%; max-width: 300px; text-align: center; font-size: 1.2rem; }
         .login-btn { margin-top: 10px; padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
 
-        /* حالت چت (مدرن و نئونی) */
         #chat-view {
             display: none; flex-direction: column; height: 100%;
             background: #050505; color: #fff; font-family: 'Arial', sans-serif;
@@ -138,7 +132,6 @@
             border-radius: 25px; font-weight: bold; cursor: pointer;
         }
 
-        /* حالت مقاله درسی (Panic View) */
         #panic-view {
             display: none; height: 100%; overflow-y: auto; background: white; color: black; padding: 20px; text-align: right; direction: rtl;
         }
@@ -146,12 +139,27 @@
         #panic-view p { color: #333; font-size: 16px; line-height: 1.8; text-align: justify; width: 100%; padding: 0; }
         .fake-return { opacity: 0.1; cursor: default; font-size: 12px; margin-top: 50px; text-align: center; }
 
-        /* Trigger Link */
+        /* استایل جدید و بزرگ برای دکمه مخفی */
         .secret-trigger {
-            width: 100%; background-color: #0e0e0e; padding: 30px 0; text-align: center; margin-top: 50px;
+            width: 100%; 
+            background-color: #0e0e0e; 
+            padding: 40px 0; 
+            text-align: center; 
+            margin-top: 50px;
         }
         .secret-trigger a {
-            color: green; font-size: 12px; text-decoration: none; cursor: pointer; font-family: sans-serif;
+            color: #00ffa7; /* رنگ سبز نئونی */
+            font-size: 18px; /* بزرگتر شده */
+            font-weight: bold;
+            text-decoration: none; 
+            cursor: pointer; 
+            font-family: sans-serif;
+            padding: 15px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .secret-trigger a:hover {
+            text-shadow: 0 0 10px #00ffa7;
         }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -198,7 +206,6 @@
         <img src="imgs/l1.png" alt="Skill 1" data-aos="fade-up" data-aos-delay="100">
         <img src="imgs/l2.png" alt="Skill 2" data-aos="fade-up" data-aos-delay="200">
         </div>
-        <!-- بقیه اسکیل‌ها رو برای تمیزی کد اینجا خلاصه کردم، کد خودتون رو کامل بذارید اگر نیاز بود -->
       </div>
     </div>
 
@@ -212,19 +219,15 @@
         </div>
     </div>
 
-    <!-- لینک مخفی برای ورود به کتابینو -->
+    <!-- لینک مخفی (اصلاح شده) -->
     <div class="secret-trigger">
-        <a onclick="openKetabino()">رو این بزن</a>
+        <a href="javascript:void(0)" onclick="openKetabino()">رو این بزن</a>
     </div>
 
-    <!-- 
-    =======================================================
-                    SECRET KETABINO SYSTEM
-    =======================================================
-    -->
+    <!-- پنل مخفی -->
     <div id="secret-container">
         
-        <!-- View 1: Login (Fake Education Site) -->
+        <!-- صفحه ورود -->
         <div id="login-view">
             <div class="ketabino-logo">📚 Ketabino | کتابینو</div>
             <p style="margin-bottom:20px; color:#666;">سامانه جامع آموزش حسابان و ریاضیات</p>
@@ -233,15 +236,13 @@
             <p id="login-error" style="color:red; margin-top:10px; display:none;">کد نادرست است</p>
         </div>
 
-        <!-- View 2: Modern Chat -->
+        <!-- صفحه چت -->
         <div id="chat-view">
             <div class="chat-header">
                 <span style="color:#00ffa7; font-weight:bold;">SYSTEM ONLINE</span>
                 <button class="panic-btn" onclick="triggerPanic()">⚠ PANIC RESET</button>
             </div>
-            <div id="chat-area" class="chat-area">
-                <!-- Messages will load here -->
-            </div>
+            <div id="chat-area" class="chat-area"></div>
             <div class="chat-input-area">
                 <label for="file-upload" id="file-btn-label">📷</label>
                 <input type="file" id="file-upload" style="display:none" accept="image/*" onchange="uploadImage()">
@@ -250,28 +251,20 @@
             </div>
         </div>
 
-        <!-- View 3: Panic (Calculus Article) -->
+        <!-- صفحه پنیک (حسابان) -->
         <div id="panic-view">
             <h1>حسابان یازدهم: مشتق و کاربردهای آن</h1>
             <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
             <p>
                 مشتق یکی از مفاهیم بنیادی در حساب دیفرانسیل و انتگرال است که نرخ تغییرات لحظه‌ای یک تابع را نشان می‌دهد. اگر تابع f در نقطه x تعریف شده باشد، مشتق آن نشان‌دهنده شیب خط مماس بر نمودار تابع در آن نقطه است. فرمول اصلی تعریف مشتق به صورت حد تغییرات تابع تقسیم بر تغییرات متغیر مستقل زمانی که تغییرات به سمت صفر میل می‌کند، بیان می‌شود.
-                <br><br>
-                در ریاضیات یازدهم، دانش‌آموزان با قوانین مشتق‌گیری توابع چندجمله‌ای، مثلثاتی و گویا آشنا می‌شوند. برای مثال، مشتق تابع sin(x) برابر با cos(x) و مشتق x^n برابر با n*x^(n-1) است. کاربردهای مشتق شامل یافتن نقاط اکسترمم (ماکزیمم و مینیمم)، تعیین صعودی یا نزولی بودن تابع و حل مسائل بهینه‌سازی می‌باشد.
             </p>
-            <br>
-            <p>
-                مفهوم حد و پیوستگی پیش‌نیاز اصلی برای درک مشتق است. تابعی مشتق‌پذیر است که در آن نقطه پیوسته باشد و مشتق چپ و راست آن با هم برابر باشند.
-            </p>
-            
-            <!-- دکمه بازگشت مخفی درون متن مقاله -->
             <div class="fake-return" onclick="returnToLogin()">
                 ورود مجدد به پنل کاربری
             </div>
         </div>
     </div>
 
-    <!-- Scripts for Visuals (Three.js, etc.) -->
+    <!-- اسکریپت‌های Three.js -->
     <script>
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -279,10 +272,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById("canvas-container").appendChild(renderer.domElement);
         
-        // ... (کدهای Three.js قبلی شما برای ذرات و متن را اینجا کامل نگه دارید - برای خلاصه شدن کد اینجا کپی نکردم ولی شما دست نزنید) ...
-        // فرض بر این است که کدهای Three.js شما اینجا وجود دارند
-        
-        // Simple particle system placeholder if you copy-paste this block:
+        // ذرات (Particles)
         const particlesGeometry = new THREE.BufferGeometry();
         const count = 5000;
         const positions = new Float32Array(count * 3);
@@ -294,12 +284,178 @@
         const light = new THREE.PointLight(0xffffff, 1, 1000);
         light.position.set(10, 10, 10);
         scene.add(light);
+
+        // متن سه بعدی (فقط اگر فایل فونت موجود باشد اجرا می‌شود)
+        const loader = new THREE.FontLoader();
+        loader.load('spike.json', function (font) {
+            const geometry = new THREE.TextGeometry('TAHA ZOLFI', {
+                font: font, size: 1, height: 0.2, curveSegments: 12, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.02, bevelSegments: 5
+            });
+            geometry.center();
+            const material = new THREE.MeshStandardMaterial({ color: 0x00ffa7 });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+        }, undefined, function(e){ console.log("Font not found, skipping 3D text"); });
+
         camera.position.z = 5;
         function animate() { requestAnimationFrame(animate); particles.rotation.y += 0.001; renderer.render(scene, camera); }
         animate();
-        // End Three.js placeholder
     </script>
+
+    <!-- توابع و منطق چت -->
     <script>
+        // 1. تعریف توابع UI (برای جلوگیری از خطای onclick)
+        function openKetabino() {
+            document.getElementById('secret-container').style.display = 'block';
+            document.getElementById('login-view').style.display = 'flex';
+            document.getElementById('chat-view').style.display = 'none';
+            document.getElementById('panic-view').style.display = 'none';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function triggerPanic() {
+            document.getElementById('chat-view').style.display = 'none';
+            document.getElementById('panic-view').style.display = 'block';
+            document.getElementById('chat-area').innerHTML = ''; // پاک کردن بصری
+        }
+
+        function returnToLogin() {
+            document.getElementById('panic-view').style.display = 'none';
+            document.getElementById('login-view').style.display = 'flex';
+            document.getElementById('secret-pass').value = '';
+        }
+
+        function toEnglishDigits(str) {
+            return str.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+        }
+
+        function requestNotificationPermission() {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (!isMobile && Notification.permission !== 'granted') {
+                Notification.requestPermission();
+            }
+        }
+
+        function sendNotification(msg) {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (!isMobile && document.hidden && Notification.permission === 'granted') {
+                new Notification('پیام جدید در کتابینو', { body: msg });
+            }
+        }
+
+        // 2. تنظیمات و توابع Supabase
+        const SUPABASE_URL = 'https://oklfwsnkaxbqlnjpownj.supabase.co'; 
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rbGZ3c25rYXhicWxuanBvd25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwOTkwMTAsImV4cCI6MjA3MzY3NTAxMH0.apanbRV3o5afJ5ivDHimjvYQY1JqawWcIsGemW0jyMg';
+        
+        let db;
+        try {
+            db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch (e) {
+            console.error("Supabase failed to load", e);
+        }
+
+        const validPasswords = ['914920', '920914'];
+
+        function checkSecretPass() {
+            let input = document.getElementById('secret-pass').value;
+            input = toEnglishDigits(input);
+            
+            if (validPasswords.includes(input)) {
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('chat-view').style.display = 'flex';
+                initChat();
+                requestNotificationPermission();
+            } else {
+                const err = document.getElementById('login-error');
+                err.style.display = 'block';
+                setTimeout(() => err.style.display = 'none', 2000);
+            }
+        }
+
+        async function sendMessage(type = 'text', content = null) {
+            if (!db) return;
+            const textInput = document.getElementById('msg-input');
+            const msgContent = content || textInput.value;
+            
+            if (!msgContent) return;
+
+            const { error } = await db
+                .from('messages')
+                .insert([{ content: msgContent, type: type }]);
+
+            if (!error && type === 'text') {
+                textInput.value = '';
+            }
+        }
+
+        document.getElementById('msg-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        async function uploadImage() {
+            if (!db) return;
+            const fileInput = document.getElementById('file-upload');
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const fileName = Date.now() + '_' + file.name;
+            const { data, error } = await db.storage
+                .from('images')
+                .upload(fileName, file);
+
+            if (error) { console.error('Upload Error:', error); return; }
+
+            const { data: { publicUrl } } = db.storage
+                .from('images')
+                .getPublicUrl(fileName);
+
+            sendMessage('image', publicUrl);
+        }
+
+        function renderMessage(msg) {
+            const chatArea = document.getElementById('chat-area');
+            const div = document.createElement('div');
+            
+            div.className = 'message msg-incoming'; 
+            
+            if (msg.type === 'image') {
+                div.innerHTML = `<img src="${msg.content}" class="msg-img">`;
+            } else {
+                div.textContent = msg.content;
+            }
+
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+            sendNotification(msg.type === 'text' ? msg.content : 'یک عکس ارسال شد');
+        }
+
+        function initChat() {
+            if (!db) return;
+            const chatArea = document.getElementById('chat-area');
+            chatArea.innerHTML = ''; 
+
+            db.from('messages')
+              .select('*')
+              .order('created_at', { ascending: true })
+              .then(({ data, error }) => {
+                  if (!error && data) {
+                      const now = new Date();
+                      data.forEach(msg => {
+                          const msgTime = new Date(msg.created_at);
+                          const diffSeconds = (now - msgTime) / 1000;
+                          if (diffSeconds < 60) renderMessage(msg);
+                      });
+                  }
+              });
+
+            db.channel('public:messages')
+              .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
+                  renderMessage(payload.new);
+              })
+              .subscribe();
+        }
+
+        // اسکرول منوی بالا
         document.addEventListener('DOMContentLoaded', () => {
             const nav = document.querySelector('.nav');
             let lastScrollTop = 0;
@@ -315,203 +471,6 @@
             grabCursor: true, centeredSlides: true,
             breakpoints: { 320: { slidesPerView: 3, spaceBetween: 20 }, 480: { slidesPerView: 3, spaceBetween: 30 }, 640: { slidesPerView: 4, spaceBetween: 40 } }
         });
-    </script>
-
-    <!-- 
-    =======================================================
-             LOGIC FOR SECRET SYSTEM (SUPABASE)
-    =======================================================
-    -->
-    <script>
-        // --- 1. CONFIGURATION ---
-        // این دو مقدار را باید از پنل Supabase خود بگیرید و جایگزین کنید
-        const SUPABASE_URL = 'https://oklfwsnkaxbqlnjpownj.supabase.co'; 
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rbGZ3c25rYXhicWxuanBvd25qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwOTkwMTAsImV4cCI6MjA3MzY3NTAxMH0.apanbRV3o5afJ5ivDHimjvYQY1JqawWcIsGemW0jyMg';
-
-        // ایجاد کلاینت
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        // --- 2. STATE MANAGEMENT ---
-        const validPasswords = ['914920', '920914'];
-        
-        function toEnglishDigits(str) {
-            return str.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
-        }
-
-        function openKetabino() {
-            document.getElementById('secret-container').style.display = 'block';
-            document.getElementById('login-view').style.display = 'flex';
-            document.getElementById('chat-view').style.display = 'none';
-            document.getElementById('panic-view').style.display = 'none';
-            document.body.style.overflow = 'hidden'; // قفل کردن اسکرول
-        }
-
-        function checkSecretPass() {
-            let input = document.getElementById('secret-pass').value;
-            input = toEnglishDigits(input); // تبدیل فارسی به انگلیسی
-            
-            if (validPasswords.includes(input)) {
-                // رمز درست است
-                document.getElementById('login-view').style.display = 'none';
-                document.getElementById('chat-view').style.display = 'flex';
-                initChat(); // شروع چت
-                requestNotificationPermission();
-            } else {
-                // رمز غلط
-                const err = document.getElementById('login-error');
-                err.style.display = 'block';
-                setTimeout(() => err.style.display = 'none', 2000);
-            }
-        }
-
-        // --- 3. PANIC SYSTEM ---
-        function triggerPanic() {
-            // مخفی کردن چت و نمایش مقاله
-            document.getElementById('chat-view').style.display = 'none';
-            document.getElementById('panic-view').style.display = 'block';
-            
-            // پاک کردن ظاهری چت (اختیاری)
-            document.getElementById('chat-area').innerHTML = '';
-        }
-
-        function returnToLogin() {
-            // بازگشت از مقاله به صفحه لاگین (ریست شدن لوپ)
-            document.getElementById('panic-view').style.display = 'none';
-            document.getElementById('login-view').style.display = 'flex';
-            document.getElementById('secret-pass').value = '';
-        }
-
-        // --- 4. CHAT LOGIC ---
-        function requestNotificationPermission() {
-            // فقط روی دسکتاپ (تشخیص ساده با UserAgent)
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            if (!isMobile && Notification.permission !== 'granted') {
-                Notification.requestPermission();
-            }
-        }
-
-        function sendNotification(msg) {
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            if (!isMobile && document.hidden && Notification.permission === 'granted') {
-                new Notification('پیام جدید در کتابینو', { body: msg });
-            }
-        }
-
-        async function sendMessage(type = 'text', content = null) {
-            const textInput = document.getElementById('msg-input');
-            const msgContent = content || textInput.value;
-            
-            if (!msgContent) return;
-
-            const { error } = await supabase
-                .from('messages')
-                .insert([{ content: msgContent, type: type }]);
-
-            if (!error && type === 'text') {
-                textInput.value = '';
-            }
-        }
-
-        // ارسال با زدن اینتر
-        document.getElementById('msg-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') sendMessage();
-        });
-
-        async function uploadImage() {
-            const fileInput = document.getElementById('file-upload');
-            const file = fileInput.files[0];
-            if (!file) return;
-
-            const fileName = Date.now() + '_' + file.name;
-            
-            // 1. Upload to Storage
-            const { data, error } = await supabase.storage
-                .from('images')
-                .upload(fileName, file);
-
-            if (error) {
-                console.error('Upload Error:', error);
-                return;
-            }
-
-            // 2. Get Public URL
-            const { data: { publicUrl } } = supabase.storage
-                .from('images')
-                .getPublicUrl(fileName);
-
-            // 3. Send Message with URL
-            sendMessage('image', publicUrl);
-        }
-
-        function renderMessage(msg) {
-            const chatArea = document.getElementById('chat-area');
-            const div = document.createElement('div');
-            
-            // تشخیص پیام خودی یا دیگران (در این نسخه ساده، همه پیام‌ها یکسان رندر می‌شوند
-            // مگر اینکه یک شناسه کاربر در لوکال استوریج ذخیره کنیم. برای سادگی رندوم می‌گذارم یا ثابت)
-            // برای واقعی‌تر شدن، باید یک UUID در localStorage ذخیره کنید.
-            let myId = localStorage.getItem('chat_user_id');
-            if(!myId) {
-                myId = Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('chat_user_id', myId);
-            }
-            
-            // اینجا فرض می‌کنیم همه پیام‌های دریافتی خاکستری هستند (چون سیستم Auth نداریم)
-            // برای سادگی: پیام‌های سمت چپ (دریافتی).
-            div.className = 'message msg-incoming'; 
-
-            if (msg.type === 'image') {
-                div.innerHTML = `<img src="${msg.content}" class="msg-img">`;
-            } else {
-                div.textContent = msg.content;
-            }
-
-            chatArea.appendChild(div);
-            chatArea.scrollTop = chatArea.scrollHeight;
-            
-            // نوتیفیکیشن
-            sendNotification(msg.type === 'text' ? msg.content : 'یک عکس ارسال شد');
-        }
-
-        function initChat() {
-            const chatArea = document.getElementById('chat-area');
-            chatArea.innerHTML = ''; // پاک کردن پیام‌های قبلی زمان لود
-
-            // 1. دریافت پیام‌های قبلی (که زیر 60 ثانیه هستند)
-            // نکته: ما در کلاینت فیلتر می‌کنیم.
-            supabase
-                .from('messages')
-                .select('*')
-                .order('created_at', { ascending: true })
-                .then(({ data, error }) => {
-                    if (!error && data) {
-                        const now = new Date();
-                        data.forEach(msg => {
-                            const msgTime = new Date(msg.created_at);
-                            const diffSeconds = (now - msgTime) / 1000;
-                            if (diffSeconds < 60) {
-                                renderMessage(msg);
-                            }
-                        });
-                    }
-                });
-
-            // 2. سابسکرایب به پیام‌های جدید
-            const channel = supabase
-                .channel('public:messages')
-                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
-                    renderMessage(payload.new);
-                })
-                .subscribe();
-
-            // 3. تایمر برای حذف پیام‌ها از صفحه بعد از 60 ثانیه
-            setInterval(() => {
-                // این بخش ساده UI را رفرش نمی‌کند، اما برای پروژه‌های حرفه‌ای‌تر
-                // می‌توانید DOM را چک کنید و المنت‌های قدیمی را حذف کنید.
-                // در اینجا به دلیل سادگی کد، فقط هنگام ورود فیلتر می‌کنیم.
-            }, 10000);
-        }
-
     </script>
 </body>
 </html>
