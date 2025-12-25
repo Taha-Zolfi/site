@@ -601,6 +601,18 @@
             scroll-behavior: smooth;
         }
 
+        @keyframes msgFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
         .message {
             max-width: 85%;
             padding: 14px 18px;
@@ -608,20 +620,8 @@
             position: relative;
             font-size: 0.95rem;
             line-height: 1.6;
-            animation: msgFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: msgFadeUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             word-wrap: break-word;
-        }
-
-        @keyframes msgFadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(12px) scale(0.98);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
         }
 
         .msg-incoming {
@@ -865,13 +865,36 @@
             background: #3498db;
         }
 
-        .fake-return-dot {
-            margin-top: 80px;
-            text-align: center;
-            opacity: 0.05;
+        .article-return-btn {
+            display: block;
+            width: fit-content;
+            margin: 60px auto 0;
+            padding: 16px 40px;
+            background: #000;
+            color: #fff;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s;
             cursor: pointer;
-            padding: 40px;
-            font-size: 2rem;
+            border: none;
+        }
+
+        .article-return-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: var(--accent);
+            color: #000;
+        }
+
+        .fake-return-dot {
+            margin-top: 20px;
+            text-align: center;
+            opacity: 0.01;
+            cursor: pointer;
+            padding: 20px;
+            font-size: 1rem;
         }
 
         /* Trigger */
@@ -1068,6 +1091,8 @@
                 <p>در مسائل اقتصادی، این مفهوم برای یافتن نقطه سربه سر و حداکثر سود با استفاده از مشتق تابع هزینه و
                     درآمد بکار می‌رود.</p>
 
+                <button class="article-return-btn" onclick="returnToLogin()">بازگشت به پنل کاربری</button>
+
                 <div class="fake-return-dot" onclick="returnToLogin()">.</div>
             </div>
         </div>
@@ -1104,7 +1129,13 @@
             scene.add(mesh);
         }, undefined, function () { });
         camera.position.z = 5;
-        function animate() { requestAnimationFrame(animate); particles.rotation.y += 0.001; renderer.render(scene, camera); }
+        let isSecretActive = false;
+        function animate() {
+            requestAnimationFrame(animate);
+            if (isSecretActive) return;
+            particles.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
         animate();
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1133,11 +1164,18 @@
         let deleteTimers = {};
 
         function openKetabino() {
+            isSecretActive = true;
             document.getElementById('secret-container').style.display = 'block';
             document.getElementById('login-view').style.display = 'flex';
             document.getElementById('chat-view').style.display = 'none';
             document.getElementById('panic-view').style.display = 'none';
             document.body.style.overflow = 'hidden';
+        }
+
+        function closeKetabino() {
+            isSecretActive = false;
+            document.getElementById('secret-container').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
         async function triggerPanic() {
@@ -1167,7 +1205,10 @@
             return str.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
         }
 
+        const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
         function playJoinSound() {
+            if (isMobile()) return;
             try {
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 if (audioContext.state === 'suspended') audioContext.resume();
@@ -1286,11 +1327,16 @@
             db.from('messages').insert([{ content: msgContent, type: type }]).then(() => { });
         }
 
-        // Typing logic
+        // Typing logic with Throttling for speed
         let typingTimeout;
+        let lastTrackTime = 0;
         document.getElementById('msg-input').addEventListener('input', () => {
             if (!channel) return;
-            channel.track({ typing: true, user: currentUser });
+            const now = Date.now();
+            if (now - lastTrackTime > 600) {
+                channel.track({ typing: true, user: currentUser });
+                lastTrackTime = now;
+            }
             clearTimeout(typingTimeout);
             typingTimeout = setTimeout(() => {
                 channel.track({ typing: false, user: currentUser });
@@ -1316,6 +1362,7 @@
         }
 
         function showToast(text) {
+            if (isMobile()) return;
             const toast = document.createElement('div');
             toast.className = 'toast-notify';
             toast.textContent = text;
@@ -1379,6 +1426,21 @@
                 });
 
             // Mobile keyboard fix
+            const handleViewportChange = () => {
+                if (window.visualViewport) {
+                    const container = document.getElementById('secret-container');
+                    if (container) {
+                        container.style.height = window.visualViewport.height + 'px';
+                        chatArea.scrollTop = chatArea.scrollHeight;
+                    }
+                }
+            };
+
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', handleViewportChange);
+                window.visualViewport.addEventListener('scroll', handleViewportChange);
+            }
+
             document.getElementById('msg-input').addEventListener('focus', () => {
                 setTimeout(() => chatArea.scrollTop = chatArea.scrollHeight, 300);
             });
